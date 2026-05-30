@@ -1,1 +1,454 @@
-content://downloads/all_downloads/146
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estudio de comunidad · Community Survey · Estudo de comunidade · 2026">
+  <meta property="og:title" content="El próximo gran ecosistema digital se diseña con vos.">
+  <meta property="og:description" content="Co-creá el futuro de nuestra comunidad. Respondé el estudio.">
+  <title>Estudio de Comunidad · 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #070809;
+      --fg:         #F2EDE8;
+      --muted:      rgba(242, 237, 232, 0.5);
+      --faint:      rgba(242, 237, 232, 0.16);
+
+      /* Jade — acento primario */
+      --jade:       #1C9E84;
+      --jade-light: #3DBFA3;
+      --jade-glow:  rgba(28, 158, 132, 0.2);
+      --jade-soft:  rgba(28, 158, 132, 0.08);
+
+      /* Oro — acento secundario */
+      --oro:        #C8973E;
+      --oro-light:  #DFB46A;
+      --oro-faint:  rgba(200, 151, 62, 0.45);
+
+      /* Magenta — solo CTA */
+      --magenta:    #E5007D;
+      --mg-glow:    rgba(229, 0, 125, 0.35);
+      --mg-deep:    rgba(229, 0, 125, 0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Rainbow bar — señal queer, sin marca */
+    .rainbow-bar {
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg,
+        #FF0080, #FF4500, #FFD700,
+        #00C87A, #00BFFF, #8A2BE2, #FF0080);
+      background-size: 300% 100%;
+      animation: rainbow-shift 5s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes rainbow-shift {
+      0%   { background-position: 0% 0%; }
+      100% { background-position: 300% 0%; }
+    }
+
+    /* Atmosphere */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-core {
+      width: 500px; height: 500px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      background: radial-gradient(circle, var(--jade-glow) 0%, transparent 68%);
+      animation: orb-pulse 7s ease-in-out infinite;
+    }
+    .orb-wide {
+      width: 950px; height: 950px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      background: radial-gradient(circle, var(--jade-soft) 0%, transparent 65%);
+    }
+    .orb-oro {
+      width: 300px; height: 300px;
+      top: 60%; left: 62%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(200,151,62,0.07) 0%, transparent 70%);
+    }
+    @keyframes orb-pulse {
+      0%, 100% { opacity: 1;   transform: translate(-50%, -56%) scale(1); }
+      50%       { opacity: 0.6; transform: translate(-50%, -56%) scale(1.1); }
+    }
+
+    /* Rings */
+    .ring {
+      position: fixed;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .ring-1 { width: 460px;  height: 460px;  border: 1px solid rgba(28,158,132,0.10); }
+    .ring-2 { width: 700px;  height: 700px;  border: 1px solid rgba(28,158,132,0.055); }
+    .ring-3 { width: 950px;  height: 950px;  border: 1px solid rgba(28,158,132,0.028); }
+
+    /* Nav */
+    nav {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 2rem 3rem;
+      opacity: 0;
+      animation: fade-down 0.6s ease 0.1s forwards;
+    }
+
+    /* Language switcher */
+    .lang-switcher {
+      display: flex;
+      gap: 0.2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 0.22rem;
+      backdrop-filter: blur(10px);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.42rem 1rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.22s ease, color 0.22s ease;
+    }
+    .lang-btn:hover { color: var(--fg); }
+    .lang-btn.active {
+      background: var(--jade);
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 2rem 6rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 2.2rem;
+      opacity: 0;
+      animation: fade-up 0.7s ease 0.3s forwards;
+    }
+    .eyebrow-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--jade);
+      box-shadow: 0 0 10px var(--jade), 0 0 22px var(--jade-glow);
+      animation: dot-pulse 3s ease-in-out infinite;
+    }
+    @keyframes dot-pulse {
+      0%, 100% { box-shadow: 0 0 10px var(--jade), 0 0 22px var(--jade-glow); }
+      50%       { box-shadow: 0 0 4px var(--jade),  0 0 8px  var(--jade-soft); }
+    }
+    .eyebrow-text {
+      font-size: 0.67rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-light);
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    /* Headline */
+    .headline {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(2.5rem, 6.5vw, 5.6rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      max-width: 860px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fade-up 0.85s ease 0.45s forwards;
+    }
+    .headline-accent {
+      background: linear-gradient(135deg, var(--jade) 20%, var(--jade-light) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Divisor oro */
+    .divider {
+      width: 36px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--oro), transparent);
+      margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fade-up 0.7s ease 0.6s forwards;
+    }
+
+    /* Subheadline */
+    .subheadline {
+      font-size: clamp(0.95rem, 2vw, 1.13rem);
+      line-height: 1.78;
+      color: var(--muted);
+      max-width: 580px;
+      font-weight: 300;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fade-up 0.85s ease 0.7s forwards;
+    }
+
+    /* CTA */
+    .cta-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      opacity: 0;
+      animation: fade-up 0.85s ease 0.85s forwards;
+    }
+    .cta-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1.05rem 2.6rem;
+      background: var(--magenta);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.015em;
+      text-decoration: none;
+      border-radius: 100px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 28px var(--mg-deep), 0 4px 18px rgba(229,0,125,0.18);
+      overflow: hidden;
+    }
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 52px var(--mg-glow), 0 8px 28px rgba(229,0,125,0.28);
+    }
+    .cta-btn:hover::after { opacity: 1; }
+    .cta-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .cta-btn:hover .cta-arrow { transform: translateX(5px); }
+
+    /* Meta — oro apagado */
+    .meta-note {
+      font-size: 0.67rem;
+      color: var(--oro-faint);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 20;
+      text-align: center;
+      padding: 1.8rem 2rem;
+      font-size: 0.62rem;
+      color: rgba(242,237,232,0.13);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Transitions */
+    .switchable { transition: opacity 0.28s ease, transform 0.28s ease; }
+    .switching  { opacity: 0; transform: translateY(6px); }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-down {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      nav   { padding: 1.4rem 1.5rem; }
+      .hero { padding: 2rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="rainbow-bar"></div>
+
+<div class="orb orb-wide"></div>
+<div class="orb orb-core"></div>
+<div class="orb orb-oro"></div>
+<div class="ring ring-1"></div>
+<div class="ring ring-2"></div>
+<div class="ring ring-3"></div>
+
+<nav>
+  <div class="lang-switcher" role="group" aria-label="Seleccionar idioma">
+    <button class="lang-btn active" data-lang="es" aria-pressed="true">ES</button>
+    <button class="lang-btn"        data-lang="pt" aria-pressed="false">PT</button>
+    <button class="lang-btn"        data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</nav>
+
+<main class="hero">
+
+  <div class="eyebrow">
+    <div class="eyebrow-dot"></div>
+    <span class="eyebrow-text switchable" id="eyebrow-text">Estudio de comunidad · 2026</span>
+  </div>
+
+  <h1 class="headline switchable" id="headline">
+    El próximo gran <span class="headline-accent">ecosistema digital</span> se diseña con vos.
+  </h1>
+
+  <div class="divider"></div>
+
+  <p class="subheadline switchable" id="subheadline">
+    Estamos desarrollando un nuevo espacio digital diseñado exclusivamente para potenciar las conexiones, el crecimiento y la visibilidad de las mujeres queer. Respondé este breve estudio, compartinos tu experiencia y co-creá el futuro de nuestra comunidad.
+  </p>
+
+  <div class="cta-wrapper">
+    <a class="cta-btn switchable" id="cta-btn"
+       href="https://docs.google.com/forms/d/e/1FAIpQLSdQI49WWps3Q_VPvafSx34jWzxsAOQxSdLgrlH5si6VMy-dPA/viewform?usp=dialog"
+       target="_blank" rel="noopener noreferrer">
+      <span id="cta-text">Sumar mi voz</span>
+      <span class="cta-arrow">→</span>
+    </a>
+    <span class="meta-note switchable" id="meta-note">Anónimo · Sin registro</span>
+  </div>
+
+</main>
+
+<footer>© 2026 Daniela NT — Todos los derechos reservados</footer>
+
+<script>
+  const content = {
+    es: {
+      eyebrow:  'Estudio de comunidad · 2026',
+      headline: 'El próximo gran <span class="headline-accent">ecosistema digital</span> se diseña con vos.',
+      sub:      'Estamos desarrollando un nuevo espacio digital diseñado exclusivamente para potenciar las conexiones, el crecimiento y la visibilidad de las mujeres queer. Respondé este breve estudio, compartinos tu experiencia y co-creá el futuro de nuestra comunidad.',
+      cta:      'Sumar mi voz',
+      meta:     'Anónimo · Sin registro',
+      href:     'https://docs.google.com/forms/d/e/1FAIpQLSdQI49WWps3Q_VPvafSx34jWzxsAOQxSdLgrlH5si6VMy-dPA/viewform?usp=dialog',
+      lang:     'es'
+    },
+    pt: {
+      eyebrow:  'Estudo de comunidade · 2026',
+      headline: 'O próximo grande <span class="headline-accent">ecossistema digital</span> é desenhado com você.',
+      sub:      'Estamos desenvolvendo um novo espaço digital desenhado exclusivamente para impulsionar as conexões, o crescimento e a visibilidade das mulheres queer. Responda a este breve estudo, compartilhe a sua experiência e co-crie o futuro da nossa comunidade.',
+      cta:      'Somar minha voz',
+      meta:     'Anônimo · Sem cadastro',
+      href:     'https://docs.google.com/forms/d/e/1FAIpQLSfhY2fPTOH9tBYznS-5h2GJe8E1LUDjeRFsXFh4-ejOcTuTBA/viewform?usp=dialog',
+      lang:     'pt'
+    },
+    en: {
+      eyebrow:  'Community survey · 2026',
+      headline: 'The next big <span class="headline-accent">digital ecosystem</span> is being built with you.',
+      sub:      'We are developing a new digital space exclusively designed to power connections, growth, and visibility for queer women. Take this brief survey, share your experience, and help co-create the future of our community.',
+      cta:      'Share my voice',
+      meta:     'Anonymous · No sign-up',
+      href:     'https://docs.google.com/forms/d/e/1FAIpQLScBEmOV0vv4kCwt28_8fAF5DtrlUzta1P3EL5rDMpSzsYI5tg/viewform?usp=dialog',
+      lang:     'en'
+    }
+  };
+
+  let current = 'es';
+
+  const elEyebrow   = document.getElementById('eyebrow-text');
+  const elHeadline  = document.getElementById('headline');
+  const elSub       = document.getElementById('subheadline');
+  const elCtaBtn    = document.getElementById('cta-btn');
+  const elCtaText   = document.getElementById('cta-text');
+  const elMeta      = document.getElementById('meta-note');
+  const switchables = document.querySelectorAll('.switchable');
+
+  function switchLang(lang) {
+    if (lang === current) return;
+    current = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      const on = b.dataset.lang === lang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on);
+    });
+    switchables.forEach(el => el.classList.add('switching'));
+    setTimeout(() => {
+      const c = content[lang];
+      elEyebrow.textContent  = c.eyebrow;
+      elHeadline.innerHTML   = c.headline;
+      elSub.textContent      = c.sub;
+      elCtaText.textContent  = c.cta;
+      elCtaBtn.href          = c.href;
+      elMeta.textContent     = c.meta;
+      document.documentElement.lang = c.lang;
+      switchables.forEach(el => el.classList.remove('switching'));
+    }, 280);
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn =>
+    btn.addEventListener('click', () => switchLang(btn.dataset.lang))
+  );
+
+  const bl = navigator.language?.slice(0, 2);
+  if (bl === 'pt') switchLang('pt');
+  else if (bl === 'en') switchLang('en');
+</script>
+
+</body>
+  </html>
+  
